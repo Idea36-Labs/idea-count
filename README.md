@@ -1,17 +1,33 @@
-# count
+# Idea Count - Contador Simples
 
-A new Flutter project.
+Descrição: Contador simples, minimalista, com fundo branco, número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela. 
 
-## Getting Started
+#### Fase 1 - Definição do produto
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Nome**: Idea Count
+- **Objetivo**: Um contador digital simples, rápido e minimalista para aumentar ou diminuir um valor com apenas um toque.
+- **Problema que resolve**: Permite realizar contagens rápidas sem distrações, substituindo métodos improvisados como contar mentalmente, usar papel ou aplicativos cheios de recursos desnecessários.
+- **Público**: Usuários que precisam contar coisas rapidamente: repetições de exercícios; itens; pontuações; tarefas; qualquer contagem simples do dia a dia.
+- **Plataformas**: Android.
+- **Funcionalidades V1 (somente o essencial)**:
+    - Exibir um número centralizado na tela.
+    - Valor inicial: **0**.
+    - Botão **+** para incrementar.
+    - Botão **-** para decrementar.
+    - Atualização instantânea do valor.
+    - Interface minimalista.
+- **Possíveis funcionalidades futuras (não entra na V1)**:
+    - Salvar último valor.
+    - Botão resetar.
+    - Histórico de contagens.
+    - Múltiplos contadores.
+    - Modo escuro.
+    - Temas personalizados.
+    - Backup dos dados.
+    - Animações e efeitos visuais avançados.
+    - Login e sincronização entre dispositivos.
+    - Publicidade.
+- Referências de aplicativos similares:
+    - Simple Tally Counter - lamnguyen: interessante, pois não tem botões.
+    - Contador de Cliques (Counter) - flowbitlabs: tem botões, som e vibração, mas excesso de propaganda.
+    - Click Counter - Max Vel: não gostei da animação, mas é extremamente minimalista.
