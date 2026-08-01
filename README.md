@@ -1,8 +1,6 @@
 # Idea Count - Contador Simples
 
-Descrição: Contador simples, minimalista, com fundo branco, número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela. 
-
-#### Fase 1 - Definição do produto
+#### Definição do produto
 
 - **Nome**: Idea Count
 - **Objetivo**: Um contador digital simples, rápido e minimalista para aumentar ou diminuir um valor com apenas um toque.
@@ -17,11 +15,12 @@ Descrição: Contador simples, minimalista, com fundo branco, número grande no 
     - Atualização instantânea do valor.
     - Interface minimalista.
 - **Possíveis funcionalidades futuras (não entra na V1)**:
-    - Salvar último valor.
     - Botão resetar.
+    - Salvar último valor.
+    - Som e vibração.
+    - Modo escuro.
     - Histórico de contagens.
     - Múltiplos contadores.
-    - Modo escuro.
     - Temas personalizados.
     - Backup dos dados.
     - Animações e efeitos visuais avançados.
@@ -31,3 +30,9 @@ Descrição: Contador simples, minimalista, com fundo branco, número grande no 
     - Simple Tally Counter - lamnguyen: interessante, pois não tem botões.
     - Contador de Cliques (Counter) - flowbitlabs: tem botões, som e vibração, mas excesso de propaganda.
     - Click Counter - Max Vel: não gostei da animação, mas é extremamente minimalista.
+
+#### Design
+
+**Descrição**: Contador simples, minimalista, com fundo branco, número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela.
+
+![Idea Count Preview](docs/images/idea_count_preview.png)
