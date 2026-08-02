@@ -1,6 +1,6 @@
 # Idea Count - Contador Simples
 
-#### Definição do produto
+## Definição do produto
 
 - **Nome**: Idea Count
 - **Objetivo**: Um contador digital simples, rápido e minimalista para aumentar ou diminuir um valor com apenas um toque.
@@ -31,8 +31,77 @@
     - Contador de Cliques (Counter) - flowbitlabs: tem botões, som e vibração, mas excesso de propaganda.
     - Click Counter - Max Vel: não gostei da animação, mas é extremamente minimalista.
 
-#### Design
+## Design
 
-**Descrição**: Contador simples, minimalista, com fundo branco, número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela.
+**Descrição**: Contador simples, com número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela.
 
 ![Idea Count Preview](docs/images/idea_count_preview.png)
+
+O Idea Count segue a identidade visual da Idea36 Labs:
+
+- Interface minimalista.
+- Fundo branco.
+- Tipografia Inter.
+- Número grande centralizado.
+- Amarelo Idea36 (#FFC107) como cor de ação principal.
+- Alto contraste e poucos elementos.
+
+#### Princípios:
+
+- simplicidade;
+- uso rápido;
+- foco no contador;
+- experiência com uma mão.
+
+## Arquitetura
+
+### Estrutura de pastas
+
+```
+lib/
+├── main.dart               # Ponto de entrada do aplicativo
+├── pages/                  # Telas
+│   └── counter_page.dart
+├── widgets/                # Componentes reutilizáveis
+│   └── counter_button.dart
+├── theme/                  # Cores, tema e estilos globais
+│   └── app_theme.dart
+└── utils/                  # Utilitários (quando necessário)
+```
+
+### Responsabilidades
+
+#### main.dart
+
+- Inicializa o aplicativo.
+- Configura o tema.
+- Define a tela inicial.
+
+#### pages/
+
+Contém as telas completas do aplicativo.
+
+#### widgets/
+
+Componentes reutilizáveis e independentes da lógica da aplicação.
+
+#### theme/
+
+Centraliza:
+
+- cores;
+- tipografia;
+- estilos;
+- tema Material.
+
+Evita cores e estilos espalhados pelo código.
+
+#### utils/
+
+Funções auxiliares que não pertencem a nenhuma tela ou widget específico.
+
+### Gerenciamento de estado
+
+A V1 utiliza apenas `StatefulWidget` e `setState()`.
+
+Caso o aplicativo cresça, a migração para uma solução como Provider, Riverpod ou Bloc será avaliada apenas quando houver necessidade.
