@@ -35,9 +35,9 @@
 
 **Descrição**: Contador simples, com número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela.
 
-![Idea Count Preview](docs/images/idea_count_preview.png)
+![Idea Count Preview](docs/images/idea_count_preview.jpg)
 
-![Idea Count Preview](docs/images/idea_count_preview2.png)
+![Idea Count Preview](docs/images/idea_count_preview2.jpg)
 
 
 O Idea Count segue a identidade visual da Idea36 Labs:
