@@ -13,9 +13,9 @@
     - Botão **+** para incrementar.
     - Botão **-** para decrementar.
     - Atualização instantânea do valor.
+    - Botão resetar.
     - Interface minimalista.
 - **Possíveis funcionalidades futuras (não entra na V1)**:
-    - Botão resetar.
     - Salvar último valor.
     - Som e vibração.
     - Modo escuro.
@@ -36,6 +36,9 @@
 **Descrição**: Contador simples, com número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de - e outro de +, para aumentar ou diminuir o número, que em princípio será 0. Esses botões serão grandes e redondos na cor amarela.
 
 ![Idea Count Preview](docs/images/idea_count_preview.png)
+
+![Idea Count Preview](docs/images/idea_count_preview2.png)
+
 
 O Idea Count segue a identidade visual da Idea36 Labs:
 
