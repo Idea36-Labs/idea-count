@@ -46,8 +46,8 @@ class CounterButton extends StatelessWidget {
 
           // Define a cor conforme o tipo de ação.
           backgroundColor: isPrimary
-              ? const Color(0xFFFFC107)
-              : const Color(0xFFF5F5F5),
+              ? const Color(0xFFFFC107) // Amarelo Idea36 (botão +)
+              : const Color(0xFFF5F5F5), // Cinza Claro (botão -)
 
           // Remove sombra forte para manter o estilo minimalista.
           elevation: 0,

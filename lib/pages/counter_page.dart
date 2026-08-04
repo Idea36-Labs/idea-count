@@ -117,7 +117,7 @@ class _CounterPageState extends State<CounterPage> {
                       CounterButton(
                         icon: Icons.add,
                         onPressed: _increment,
-                        isPrimary: true,
+                        isPrimary: true, // <-- Ativa a cor amarela
                       ),
                     ],
                   ),
