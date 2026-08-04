@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // 1. IMPORTANTE: Import necessário para o SystemChrome
 
 import 'pages/counter_page.dart';
 import 'theme/app_theme.dart';
@@ -7,7 +8,14 @@ import 'theme/app_theme.dart';
 ///
 /// Toda aplicação Flutter inicia sua execução por esta função.
 /// Ela é responsável por iniciar o widget principal do aplicativo.
-void main() {
+void main() async { // 2. Adicionado 'async' para aguardar as configurações do sistema
+  // Garante a inicialização das ligações do Flutter com a plataforma nativa
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 3. Bloqueia a orientação do aplicativo exclusivamente para Modo Retrato (Portrait)
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const IdeaCountApp());
 }
 
