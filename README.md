@@ -13,10 +13,10 @@
     - Botão **+** para incrementar.
     - Botão - para decrementar.
     - Atualização instantânea do valor.
+    - Salvar último valor.
     - Botão resetar.
     - Interface minimalista.
 - **Possíveis funcionalidades futuras (não entra na V1)**:
-    - Salvar último valor.
     - Som e vibração.
     - Modo escuro.
     - Histórico de contagens.
@@ -26,10 +26,6 @@
     - Animações e efeitos visuais avançados.
     - Login e sincronização entre dispositivos.
     - Publicidade.
-- Referências de aplicativos similares:
-    - Simple Tally Counter - lamnguyen: interessante, pois não tem botões.
-    - Contador de Cliques (Counter) - flowbitlabs: tem botões, som e vibração, mas excesso de propaganda.
-    - Click Counter - Max Vel: não gostei da animação, mas é extremamente minimalista.
 
 ## Design
 
