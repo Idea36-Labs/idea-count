@@ -37,6 +37,9 @@ class _CounterPageState extends State<CounterPage> {
   /// Controla a escala visual do número para o efeito de impulso no clique.
   double _numberScale = 1.0;
 
+  /// Controla o deslocamento vertical do número para o efeito de salto ao resetar.
+  double _numberOffsetY = 0.0;
+
   @override
   void initState() {
     super.initState();
@@ -128,6 +131,7 @@ class _CounterPageState extends State<CounterPage> {
       _count = 0;
     });
     _saveCounter(0);
+    _triggerResetJumpAnimation(); // Dispara o salto vertical do número
   }
 
   /// Dispara a animação de escala temporária no número.
@@ -141,6 +145,22 @@ class _CounterPageState extends State<CounterPage> {
       if (mounted) {
         setState(() {
           _numberScale = 1.0;
+        });
+      }
+    });
+  }
+
+  /// Dispara a animação de salto vertical no número ao zerar o contador.
+  void _triggerResetJumpAnimation() {
+    setState(() {
+      _numberOffsetY = -20.0; // Desloca o número para cima em 20 pixels
+    });
+
+    // Retorna o número para a posição original após 150 milissegundos
+    Future.delayed(const Duration(milliseconds: 150), () {
+      if (mounted) {
+        setState(() {
+          _numberOffsetY = 0.0;
         });
       }
     });
@@ -170,19 +190,24 @@ class _CounterPageState extends State<CounterPage> {
             // Área central contendo o número do contador.
             Expanded(
               child: Center(
-                child: AnimatedScale(
-                  scale: _numberScale,
-                  duration: const Duration(milliseconds: 100),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
                   curve: Curves.easeOut,
-                  child: Text(
-                    '$_count',
+                  transform: Matrix4.translationValues(0, _numberOffsetY, 0),
+                  child: AnimatedScale(
+                    scale: _numberScale,
+                    duration: const Duration(milliseconds: 100),
+                    curve: Curves.easeOut,
+                    child: Text(
+                      '$_count',
 
-                    // O número é o elemento principal da interface.
-                    style: const TextStyle(
-                      fontSize: 120,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: -4,
-                      color: Color(0xFF1A1A1A),
+                      // O número é o elemento principal da interface.
+                      style: const TextStyle(
+                        fontSize: 120,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -4,
+                        color: Color(0xFF1A1A1A),
+                      ),
                     ),
                   ),
                 ),

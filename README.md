@@ -17,6 +17,7 @@
     - Vibração ao toque.
     - Salvar último valor.
     - Botão resetar.
+    - Animação de Salto ao Resetar (Reset Jump).
     - Diálogo de Confirmação no Reset.
     - Interface minimalista.
 - **Possíveis funcionalidades futuras (não entra na V1)**:
