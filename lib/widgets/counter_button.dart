@@ -31,9 +31,9 @@ class CounterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // Tamanho definido pelo design do Stitch.
-      width: 80,
-      height: 80,
+      // Tamanho dos botões.
+      width: 110,
+      height: 110,
 
       child: ElevatedButton(
         // Adiciona a resposta tátil suave ao toque antes de executar a ação
