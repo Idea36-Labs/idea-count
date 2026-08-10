@@ -74,14 +74,55 @@ class _CounterPageState extends State<CounterPage> {
     }
   }
 
-  /// Reseta o contador para zero.
+/// Exibe um diálogo de confirmação para evitar que o usuário zere o contador por engano.
+  void _showResetConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Zerar contador?'),
+          content: const Text(
+            'Esta ação irá redefinir a sua contagem atual para zero. Deseja continuar?',
+          ),
+          actions: [
+            // Cancela a ação e fecha a janela sem alterar o contador.
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Cancelar',
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+            // Confirma a ação, fecha o diálogo e aciona o reset.
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _reset();
+              },
+              child: const Text(
+                'Zerar',
+                style: TextStyle(
+                  color: Color(0xFFD32F2F),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  /// Reseta o valor do contador para zero e persiste a alteração no armazenamento.
   ///
   /// O botão de reset faz parte do design criado pelo Stitch.
   void _reset() {
     setState(() {
       _count = 0;
     });
-    _saveCounter(0); // <-- Linha adicionada
+    _saveCounter(0);
   }
 
   @override
@@ -154,7 +195,7 @@ class _CounterPageState extends State<CounterPage> {
 
                   // Botão secundário de reset.
                   TextButton(
-                    onPressed: _reset,
+                    onPressed: _showResetConfirmationDialog,
                     child: const Text(
                       'RESET COUNT',
                       style: TextStyle(

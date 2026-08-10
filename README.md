@@ -16,6 +16,7 @@
     - Atualização instantânea do valor.
     - Salvar último valor.
     - Botão resetar.
+    - Diálogo de Confirmação no Reset.
     - Interface minimalista.
 - **Possíveis funcionalidades futuras (não entra na V1)**:
     - Sons.
