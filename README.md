@@ -11,9 +11,10 @@
     - Exibir um número centralizado na tela.
     - Valor inicial: **0**.
     - Botão **+** para incrementar.
-    - Botão - para decrementar.
-    - Vibração ao toque.
+    - Botão **-** para decrementar.
     - Atualização instantânea do valor.
+    - Efeito de Impulso / Escala no Número (Scale Animation).
+    - Vibração ao toque.
     - Salvar último valor.
     - Botão resetar.
     - Diálogo de Confirmação no Reset.

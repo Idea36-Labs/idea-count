@@ -34,6 +34,9 @@ class _CounterPageState extends State<CounterPage> {
   /// Conforme definido no produto, o contador começa sempre em zero.
   int _count = 0;
 
+  /// Controla a escala visual do número para o efeito de impulso no clique.
+  double _numberScale = 1.0;
+
   @override
   void initState() {
     super.initState();
@@ -59,7 +62,8 @@ class _CounterPageState extends State<CounterPage> {
     setState(() {
       _count++;
     });
-    _saveCounter(_count); // <-- Linha adicionada
+    _saveCounter(_count); // Salva o último valor
+    _triggerScaleAnimation(1.08); // Impulso de ampliação (cresce)
   }
 
   /// Decrementa o contador em 1.
@@ -71,6 +75,7 @@ class _CounterPageState extends State<CounterPage> {
         _count--;
       });
       _saveCounter(_count); // <-- Linha adicionada
+      _triggerScaleAnimation(0.92); // Impulso de redução (encolhe)
     }
   }
 
@@ -125,6 +130,22 @@ class _CounterPageState extends State<CounterPage> {
     _saveCounter(0);
   }
 
+  /// Dispara a animação de escala temporária no número.
+  void _triggerScaleAnimation(double targetScale) {
+    setState(() {
+      _numberScale = targetScale;
+    });
+
+    // Retorna a escala para o tamanho normal (1.0) após 100 milissegundos
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (mounted) {
+        setState(() {
+          _numberScale = 1.0;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,15 +170,20 @@ class _CounterPageState extends State<CounterPage> {
             // Área central contendo o número do contador.
             Expanded(
               child: Center(
-                child: Text(
-                  '$_count',
+                child: AnimatedScale(
+                  scale: _numberScale,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.easeOut,
+                  child: Text(
+                    '$_count',
 
-                  // O número é o elemento principal da interface.
-                  style: const TextStyle(
-                    fontSize: 120,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -4,
-                    color: Color(0xFF1A1A1A),
+                    // O número é o elemento principal da interface.
+                    style: const TextStyle(
+                      fontSize: 120,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -4,
+                      color: Color(0xFF1A1A1A),
+                    ),
                   ),
                 ),
               ),
