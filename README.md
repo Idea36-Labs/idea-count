@@ -12,12 +12,13 @@
     - Valor inicial: **0**.
     - Botão **+** para incrementar.
     - Botão - para decrementar.
+    - Vibração ao toque.
     - Atualização instantânea do valor.
     - Salvar último valor.
     - Botão resetar.
     - Interface minimalista.
 - **Possíveis funcionalidades futuras (não entra na V1)**:
-    - Som e vibração.
+    - Sons.
     - Modo escuro.
     - Histórico de contagens.
     - Múltiplos contadores.

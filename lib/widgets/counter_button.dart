@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Botão circular utilizado pelos controles do contador.
 ///
@@ -35,7 +36,11 @@ class CounterButton extends StatelessWidget {
       height: 80,
 
       child: ElevatedButton(
-        onPressed: onPressed,
+        // Adiciona a resposta tátil suave ao toque antes de executar a ação
+        onPressed: () {
+          HapticFeedback.lightImpact();
+          onPressed();
+        },
 
         // Remove o preenchimento interno padrão do botão.
         style: ElevatedButton.styleFrom(
