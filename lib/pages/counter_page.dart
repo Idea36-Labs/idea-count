@@ -181,7 +181,8 @@ class _CounterPageState extends State<CounterPage> {
                 'IDEA COUNT',
                 style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -0.5,
                   color: Color(0xFF1A1A1A),
                 ),
               ),
@@ -245,13 +246,26 @@ class _CounterPageState extends State<CounterPage> {
                   const SizedBox(height: 16),
 
                   // Botão secundário de reset.
-                  TextButton(
+                  OutlinedButton(
                     onPressed: _showResetConfirmationDialog,
+                    style: OutlinedButton.styleFrom(
+                      fixedSize: const Size(120, 30),
+                      side: const BorderSide(
+                        color: Color(0xFFE0E0E0),
+                        width: 1,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: EdgeInsets.zero,
+                    ),
                     child: const Text(
                       'RESET COUNT',
                       style: TextStyle(
+                        fontSize: 12,
                         fontWeight: FontWeight.w700,
-                        letterSpacing: 1.2,
+                        letterSpacing: 0.8,
+                        color: Color(0xFF5B4300),
                       ),
                     ),
                   ),

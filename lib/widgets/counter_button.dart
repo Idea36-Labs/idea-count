@@ -67,8 +67,8 @@ class CounterButton extends StatelessWidget {
           // Tamanho do símbolo + ou -.
           size: 36,
 
-          // Cor escura para contraste.
-          color: const Color(0xFF1A1A1A),
+          // Cor do símbolo + ou -.
+          color: const Color(0xFF5B4300),
         ),
       ),
     );
