@@ -35,7 +35,10 @@
 
 **Descrição**: Contador simples, com número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de "-" e outro de "+", para aumentar ou diminuir o número, que em princípio será 0. Os botões são grandes e redondos, o de decremento na cor cinza e o de incremento na cor amarela.
 
-![Idea Count Preview](https://lh3.googleusercontent.com/pw/AP1GczMHQhcnz8i3QmDXnWk3lj4fn6CtjfNk9sCl2sT-Q8MQXhvVm9GcW2w7Nu2mteosmLZsG70QtPsR3YT6lHSP_EGHiiRllQdpdN9HYQHJhJ-yHy4XKNV3jneonJlyi_ewQqt-xCJ92OQeJw_Cx-cZju7m=w275-h612-s-no-gm?authuser=0)
+<img src="docs/images/idea_count_preview_1.jpg" alt="Idea Count Preview" width="200"/>
+<img src="docs/images/idea_count_preview_2.jpg" alt="Idea Count Preview" width="200"/>
+<img src="docs/images/idea_count_preview_3.jpg" alt="Idea Count Preview" width="200"/>
+
 
 O Idea Count segue a identidade visual da Idea36 Labs:
 
@@ -107,3 +110,9 @@ Funções auxiliares que não pertencem a nenhuma tela ou widget específico.
 A V1 utiliza apenas `StatefulWidget` e `setState()`.
 
 Caso o aplicativo cresça, a migração para uma solução como Provider, Riverpod ou Bloc será avaliada apenas quando houver necessidade.
+
+### Política de Privacidade
+
+Link da política de privacidade do app **Idea Count**: 
+
+🔗 [idea36labs.com/ideacount/privacy](http://www.idea36labs.com/ideacount/privacy.html)
