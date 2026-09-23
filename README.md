@@ -7,7 +7,7 @@
 - **Problem it solves**: Enables quick counting without distractions, replacing improvised methods such as mental counting, tallying on paper, or apps cluttered with unnecessary features.
 - **Audience**: Users who need to count things quickly: workout repetitions, items, scores, tasks, or any simple day-to-day counting.
 - **Platforms**: Android.
-- **V1 Features (essentials only)**:
+- **Features**:
     - Display a centered number on screen.
     - Initial value: **0**.
     - **+** button to increment.
@@ -15,13 +15,13 @@
     - Instant value update.
     - Number pulse / scale effect (Scale Animation).
     - Haptic feedback (vibration on tap).
-    - Save last value.
+    - Audio feedback on tap (low-latency pre-buffered sounds).
+    - Persist last value across app restarts (`shared_preferences`).
     - Reset button.
     - Jump animation on reset (Reset Jump).
     - Confirmation dialog on reset.
     - Minimalist interface.
-- **Potential future features (out of scope for V1)**:
-    - Sounds.
+- **Potential future features**:
     - Dark mode.
     - Count history.
     - Multiple counters.
@@ -63,11 +63,15 @@ lib/
 ├── main.dart
 ├── pages/
 │   └── counter_page.dart
-├── widgets/
-│   └── counter_button.dart
+├── services/
+│   ├── counter_storage_service.dart
+│   └── sound_service.dart
 ├── theme/
 │   └── app_theme.dart
-└── utils/
+└── widgets/
+    ├── counter_button.dart
+    ├── counter_display.dart
+    └── reset_confirmation_dialog.dart
 ```
 
 ### Responsibilities
@@ -76,40 +80,69 @@ lib/
 
 Application entry point.
 
-- Initializes the application.
-- Configures the theme.
-- Defines the home screen.
+- Initializes Flutter bindings (`WidgetsFlutterBinding.ensureInitialized()`).
+- Eagerly initializes and pre-warms `SoundService` before `runApp()` for instant first-tap audio response.
+- Locks device orientation exclusively to portrait mode.
+- Injects dependencies into the root `IdeaCountApp` widget.
+- Configures global theme and sets `CounterPage` as the home screen.
 
 #### pages/
 
-Contains the full screens of the application.
+Contains full application screens.
+
+- **`counter_page.dart`**: Main screen that orchestrates the UI, coordinates state changes, invokes services (sound and persistence), and renders widget components.
+
+#### services/
+
+Encapsulates non-UI logic, external plugins, and data infrastructure:
+
+- **`counter_storage_service.dart`**: Persistence layer managing asynchronous save and load operations for the counter value via `shared_preferences`.
+- **`sound_service.dart`**: Audio feedback layer managing pre-buffered pools (`AudioPool`) with `PlayerMode.lowLatency` (Android SoundPool) for near-instant playback on rapid taps.
 
 #### widgets/
 
-Reusable components independent of application logic.
+Reusable and modular UI components:
+
+- **`counter_button.dart`**: Circular, customizable tactile buttons for increment and decrement actions with visual and haptic feedback.
+- **`counter_display.dart`**: Displays the counter value with smooth scale animations and a jump animation upon reset.
+- **`reset_confirmation_dialog.dart`**: Modal confirmation dialog preventing accidental counter resets.
 
 #### theme/
 
-Centralizes:
+Centralizes visual design tokens:
 
 - Colors;
-- Typography;
-- Styles;
-- Material Theme.
+- Typography (`Inter` font family);
+- Button and dialog styles;
+- Material 3 theme definition.
 
-Avoids colors and styles scattered throughout the code.
+Avoids hardcoded colors and styles scattered throughout the code.
 
-#### utils/
+### State management & Architecture Patterns
 
-Helper functions that do not belong to any specific screen or widget.
+- UI state is managed directly using Flutter's built-in `StatefulWidget` and `setState()`, keeping the codebase simple and lightweight.
+- Clear separation of concerns: storage and audio playback are extracted into standalone service classes under `services/`, keeping the UI layer decoupled from device and storage APIs.
+- Dependencies are passed down via constructor injection (`main` → `IdeaCountApp` → `CounterPage`).
 
-### State management
+## Changelog
 
-V1 uses only `StatefulWidget` and `setState()`.
+### v1.1.0
+- **Audio Feedback:** Integrated instant auditory feedback on tap using `AudioPool` with `lowLatency` mode (Android SoundPool) and eager startup initialization.
+- **Visual Identity:** Updated app launcher icon and refreshed native asset bundles.
+- **Architectural Refactoring:**
+  - Applied Clean Architecture principles by isolating persistence into `CounterStorageService`.
+  - Extracted UI components into modular widgets (`CounterDisplay`, `CounterButton`, `ResetConfirmationDialog`).
+  - Implemented constructor dependency injection from `main()`.
+- **Performance & UI Fixes:** Prevented animation queue buildup on rapid taps and decoupled storage execution from `setState`.
+- **Localization:** Translated in-app UI messaging, code comments, and documentation to English.
 
-If the application grows, migrating to a solution like Provider, Riverpod, or Bloc will only be considered when needed.
+### v1.0.0
+- Initial public release on Google Play Store.
+- Core minimalist counter functionality with tap-to-count (+/-).
+- Micro-interactions (haptic feedback, pulse effect, and reset jump animation).
+- Persistent state using `shared_preferences`.
 
-### Privacy Policy
+## Privacy Policy
 
 Privacy policy link for the **Idea Count** app: 
 
