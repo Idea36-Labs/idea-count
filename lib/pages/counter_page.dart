@@ -15,8 +15,11 @@ import '../services/sound_service.dart';
 /// Since the application is simple, state management will be handled
 /// using StatefulWidget + setState().
 class CounterPage extends StatefulWidget {
+  /// The shared [SoundService] instance injected from [main].
+  final SoundService soundService;
+
   /// Default constructor for the screen.
-  const CounterPage({super.key});
+  const CounterPage({super.key, required this.soundService});
 
   @override
   State<CounterPage> createState() => _CounterPageState();
@@ -28,7 +31,6 @@ class CounterPage extends StatefulWidget {
 /// whenever this value changes.
 class _CounterPageState extends State<CounterPage> {
   final CounterStorageService _storageService = CounterStorageService();
-  final SoundService _soundService = SoundService();
   int _count = 0;
 
   @override
@@ -39,7 +41,7 @@ class _CounterPageState extends State<CounterPage> {
 
   @override
   void dispose() {
-    _soundService.dispose();
+    widget.soundService.dispose();
     super.dispose();
   }
 
@@ -59,7 +61,7 @@ class _CounterPageState extends State<CounterPage> {
     final newCount = _count + 1;
     setState(() => _count = newCount);
     _saveCounter(newCount);
-    _soundService.playIncrement();
+    widget.soundService.playIncrement();
   }
 
   void _decrement() {
@@ -67,7 +69,7 @@ class _CounterPageState extends State<CounterPage> {
       final newCount = _count - 1;
       setState(() => _count = newCount);
       _saveCounter(newCount);
-      _soundService.playDecrement();
+      widget.soundService.playDecrement();
     }
   }
 
