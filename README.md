@@ -1,62 +1,62 @@
-# Idea Count - Contador Simples
+# Idea Count - Simple Counter
 
-## Definição do produto
+## Product Definition
 
-- **Nome**: Idea Count
-- **Objetivo**: Um contador digital simples, rápido e minimalista para aumentar ou diminuir um valor com apenas um toque.
-- **Problema que resolve**: Permite realizar contagens rápidas sem distrações, substituindo métodos improvisados como contar mentalmente, usar papel ou aplicativos cheios de recursos desnecessários.
-- **Público**: Usuários que precisam contar coisas rapidamente: repetições de exercícios; itens; pontuações; tarefas; qualquer contagem simples do dia a dia.
-- **Plataformas**: Android.
-- **Funcionalidades V1 (somente o essencial)**:
-    - Exibir um número centralizado na tela.
-    - Valor inicial: **0**.
-    - Botão **+** para incrementar.
-    - Botão **-** para decrementar.
-    - Atualização instantânea do valor.
-    - Efeito de Impulso / Escala no Número (Scale Animation).
-    - Vibração ao toque.
-    - Salvar último valor.
-    - Botão resetar.
-    - Animação de Salto ao Resetar (Reset Jump).
-    - Diálogo de Confirmação no Reset.
-    - Interface minimalista.
-- **Possíveis funcionalidades futuras (não entra na V1)**:
-    - Sons.
-    - Modo escuro.
-    - Histórico de contagens.
-    - Múltiplos contadores.
-    - Temas personalizados.
-    - Backup dos dados.
-    - Animações e efeitos visuais avançados.
-    - Login e sincronização entre dispositivos.
-    - Publicidade.
+- **Name**: Idea Count
+- **Goal**: A simple, fast, and minimalist digital counter to increase or decrease a value with a single tap.
+- **Problem it solves**: Enables quick counting without distractions, replacing improvised methods such as mental counting, tallying on paper, or apps cluttered with unnecessary features.
+- **Audience**: Users who need to count things quickly: workout repetitions, items, scores, tasks, or any simple day-to-day counting.
+- **Platforms**: Android.
+- **V1 Features (essentials only)**:
+    - Display a centered number on screen.
+    - Initial value: **0**.
+    - **+** button to increment.
+    - **-** button to decrement.
+    - Instant value update.
+    - Number pulse / scale effect (Scale Animation).
+    - Haptic feedback (vibration on tap).
+    - Save last value.
+    - Reset button.
+    - Jump animation on reset (Reset Jump).
+    - Confirmation dialog on reset.
+    - Minimalist interface.
+- **Potential future features (out of scope for V1)**:
+    - Sounds.
+    - Dark mode.
+    - Count history.
+    - Multiple counters.
+    - Custom themes.
+    - Data backup.
+    - Advanced animations and visual effects.
+    - Login and cross-device sync.
+    - Ads.
 
 ## Design
 
-**Descrição**: Contador simples, com número grande no meio da tela na cor escura. Embaixo do número há dois botões, um de "-" e outro de "+", para aumentar ou diminuir o número, que em princípio será 0. Os botões são grandes e redondos, o de decremento na cor cinza e o de incremento na cor amarela.
+**Description**: Simple counter with a large dark number in the center of the screen. Below the number are two buttons, "-" and "+", to increase or decrease the number, which initially starts at 0. The buttons are large and round, with decrement in gray and increment in yellow.
 
 <img src="docs/images/idea_count_preview_1.jpg" alt="Idea Count Preview" width="200"/> <img src="docs/images/idea_count_preview_2.jpg" alt="Idea Count Preview" width="200"/> <img src="docs/images/idea_count_preview_3.jpg" alt="Idea Count Preview" width="200"/>
 
 
-O Idea Count segue a identidade visual da Idea36 Labs:
+Idea Count follows the Idea36 Labs visual identity:
 
-- Interface minimalista.
-- Fundo branco.
-- Tipografia Inter.
-- Número grande centralizado.
-- Amarelo Idea36 (#FFC107) como cor de ação principal.
-- Alto contraste e poucos elementos.
+- Minimalist interface.
+- White background.
+- Inter typography.
+- Large centered number.
+- Idea36 Yellow (#FFC107) as the primary action color.
+- High contrast and few elements.
 
-#### Princípios:
+#### Principles:
 
-- Simplicidade;
-- Uso rápido;
-- Foco no contador;
-- Experiência com uma mão.
+- Simplicity;
+- Quick usage;
+- Focus on the counter;
+- One-handed experience.
 
-## Arquitetura
+## Architecture
 
-### Estrutura de pastas
+### Folder structure
 
 ```
 lib/
@@ -70,47 +70,47 @@ lib/
 └── utils/
 ```
 
-### Responsabilidades
+### Responsibilities
 
 #### main.dart
 
-Ponto de entrada do aplicativo.
+Application entry point.
 
-- Inicializa o aplicativo.
-- Configura o tema.
-- Define a tela inicial.
+- Initializes the application.
+- Configures the theme.
+- Defines the home screen.
 
 #### pages/
 
-Contém as telas completas do aplicativo.
+Contains the full screens of the application.
 
 #### widgets/
 
-Componentes reutilizáveis e independentes da lógica da aplicação.
+Reusable components independent of application logic.
 
 #### theme/
 
-Centraliza:
+Centralizes:
 
-- Cores;
-- Tipografia;
-- Estilos;
-- Tema Material.
+- Colors;
+- Typography;
+- Styles;
+- Material Theme.
 
-Evita cores e estilos espalhados pelo código.
+Avoids colors and styles scattered throughout the code.
 
 #### utils/
 
-Funções auxiliares que não pertencem a nenhuma tela ou widget específico.
+Helper functions that do not belong to any specific screen or widget.
 
-### Gerenciamento de estado
+### State management
 
-A V1 utiliza apenas `StatefulWidget` e `setState()`.
+V1 uses only `StatefulWidget` and `setState()`.
 
-Caso o aplicativo cresça, a migração para uma solução como Provider, Riverpod ou Bloc será avaliada apenas quando houver necessidade.
+If the application grows, migrating to a solution like Provider, Riverpod, or Bloc will only be considered when needed.
 
-### Política de Privacidade
+### Privacy Policy
 
-Link da política de privacidade do app **Idea Count**: 
+Privacy policy link for the **Idea Count** app: 
 
 🔗 [idea36labs.com/ideacount/privacy](http://www.idea36labs.com/ideacount/privacy.html)
