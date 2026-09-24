@@ -29,7 +29,14 @@ class CounterPage extends StatefulWidget {
 ///
 /// Holds the current counter value and updates the interface
 /// whenever this value changes.
+///
+/// The counter is bounded to the interval [_kMinCount, _kMaxCount].
+/// Mutations that would exceed either bound are silently ignored —
+/// no state update, persistence, or audio is triggered in those cases.
 class _CounterPageState extends State<CounterPage> {
+  static const int _kMinCount = 0;
+  static const int _kMaxCount = 9999;
+
   final CounterStorageService _storageService = CounterStorageService();
   int _count = 0;
 
@@ -49,7 +56,8 @@ class _CounterPageState extends State<CounterPage> {
     final value = await _storageService.loadCounter();
     if (!mounted) return;
     setState(() {
-      _count = value;
+      // Clamp guards against corrupted or out-of-range persisted data.
+      _count = value.clamp(_kMinCount, _kMaxCount);
     });
   }
 
@@ -58,6 +66,7 @@ class _CounterPageState extends State<CounterPage> {
   }
 
   void _increment() {
+    if (_count >= _kMaxCount) return;
     final newCount = _count + 1;
     setState(() => _count = newCount);
     _saveCounter(newCount);
