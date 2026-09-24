@@ -1,15 +1,18 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'i_counter_storage.dart';
+
 /// Handles persistent storage of the counter value using [SharedPreferences].
 ///
 /// Isolates all read/write I/O from the UI layer, allowing the storage
 /// backend to be swapped without touching any widget code.
-class CounterStorageService {
+class CounterStorageService implements ICounterStorage {
   static const String _counterKey = 'counter_value';
 
   /// Reads the last saved counter value from persistent storage.
   ///
   /// Returns `0` if no value has been saved yet or if an error occurs.
+  @override
   Future<int> loadCounter() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -22,6 +25,7 @@ class CounterStorageService {
   /// Persists [value] to storage and returns `true` on success.
   ///
   /// Returns `false` if an error occurs during the write operation.
+  @override
   Future<bool> saveCounter(int value) async {
     try {
       final prefs = await SharedPreferences.getInstance();

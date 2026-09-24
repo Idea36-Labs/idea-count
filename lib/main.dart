@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'pages/counter_page.dart';
+import 'services/counter_storage_service.dart';
 import 'services/sound_service.dart';
 import 'theme/app_theme.dart';
 
@@ -16,13 +17,14 @@ void main() async {
   // SoundService is created here — before runApp — so AudioPool.create()
   // has maximum warm-up time before the user can interact with the UI.
   final soundService = SoundService();
+  final storageService = CounterStorageService();
 
   // Locks the application orientation exclusively to Portrait mode.
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
 
-  runApp(IdeaCountApp(soundService: soundService));
+  runApp(IdeaCountApp(soundService: soundService, storageService: storageService));
 }
 
 /// Root widget of the application.
@@ -37,8 +39,11 @@ class IdeaCountApp extends StatelessWidget {
   /// The shared [SoundService] instance, created in [main] for early warm-up.
   final SoundService soundService;
 
+  /// The storage backend, created in [main] and injected for testability.
+  final CounterStorageService storageService;
+
   /// Default constructor.
-  const IdeaCountApp({super.key, required this.soundService});
+  const IdeaCountApp({super.key, required this.soundService, required this.storageService});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,7 @@ class IdeaCountApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
 
       // First screen displayed when the application starts.
-      home: CounterPage(soundService: soundService),
+      home: CounterPage(soundService: soundService, storageService: storageService),
     );
   }
 }

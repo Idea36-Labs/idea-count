@@ -1,5 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 
+import 'i_sound_service.dart';
+
 /// Manages pre-buffered audio playback for UI interaction sounds.
 ///
 /// Uses [AudioPool] with [PlayerMode.lowLatency] (Android SoundPool) to
@@ -7,7 +9,7 @@ import 'package:audioplayers/audioplayers.dart';
 /// Each sound has its own pool with up to 4 concurrent players.
 ///
 /// Must call [dispose] when the owning widget is unmounted.
-class SoundService {
+class SoundService implements ISoundService {
   static const double _volume = 0.55;
 
   /// Duration of each WAV asset — used to auto-return players to the pool
@@ -40,6 +42,7 @@ class SoundService {
   /// Plays the increment (higher-pitch) sound effect.
   ///
   /// Fails silently on audio errors to avoid disrupting the UI.
+  @override
   Future<void> playIncrement() async {
     try {
       final pool = await _incrementPool;
@@ -53,6 +56,7 @@ class SoundService {
   /// Plays the decrement (lower-pitch) sound effect.
   ///
   /// Fails silently on audio errors to avoid disrupting the UI.
+  @override
   Future<void> playDecrement() async {
     try {
       final pool = await _decrementPool;
@@ -64,6 +68,7 @@ class SoundService {
   /// Releases all audio resources held by this service.
   ///
   /// Must be called inside the owner's [dispose] lifecycle method.
+  @override
   Future<void> dispose() async {
     try {
       await (await _incrementPool).dispose();

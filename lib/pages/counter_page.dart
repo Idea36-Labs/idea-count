@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../widgets/counter_button.dart';
 import '../widgets/counter_display.dart';
 import '../widgets/reset_confirmation_dialog.dart';
-import '../services/counter_storage_service.dart';
-import '../services/sound_service.dart';
+import '../services/i_counter_storage.dart';
+import '../services/i_sound_service.dart';
 
 /// Main screen of Idea Count.
 ///
@@ -15,11 +15,17 @@ import '../services/sound_service.dart';
 /// Since the application is simple, state management will be handled
 /// using StatefulWidget + setState().
 class CounterPage extends StatefulWidget {
-  /// The shared [SoundService] instance injected from [main].
-  final SoundService soundService;
+  /// The shared [ISoundService] instance injected from [main].
+  final ISoundService soundService;
+
+  /// The storage backend injected from [main].
+  ///
+  /// Accepts any [ICounterStorage] implementation, enabling in-memory
+  /// fakes to be used in tests without touching widget code.
+  final ICounterStorage storageService;
 
   /// Default constructor for the screen.
-  const CounterPage({super.key, required this.soundService});
+  const CounterPage({super.key, required this.soundService, required this.storageService});
 
   @override
   State<CounterPage> createState() => _CounterPageState();
@@ -37,7 +43,6 @@ class _CounterPageState extends State<CounterPage> {
   static const int _kMinCount = 0;
   static const int _kMaxCount = 9999;
 
-  final CounterStorageService _storageService = CounterStorageService();
   int _count = 0;
 
   @override
@@ -53,7 +58,7 @@ class _CounterPageState extends State<CounterPage> {
   }
 
   Future<void> _loadCounter() async {
-    final value = await _storageService.loadCounter();
+    final value = await widget.storageService.loadCounter();
     if (!mounted) return;
     setState(() {
       // Clamp guards against corrupted or out-of-range persisted data.
@@ -62,7 +67,7 @@ class _CounterPageState extends State<CounterPage> {
   }
 
   Future<void> _saveCounter(int value) async {
-    await _storageService.saveCounter(value);
+    await widget.storageService.saveCounter(value);
   }
 
   void _increment() {
