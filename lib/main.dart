@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'pages/counter_page.dart';
 import 'services/counter_storage_service.dart';
+import 'services/i_counter_storage.dart';
+import 'services/i_sound_service.dart';
 import 'services/sound_service.dart';
 import 'theme/app_theme.dart';
 
@@ -36,11 +38,11 @@ void main() async {
 ///
 /// No business rules should reside here.
 class IdeaCountApp extends StatelessWidget {
-  /// The shared [SoundService] instance, created in [main] for early warm-up.
-  final SoundService soundService;
+  /// The shared [ISoundService] instance, created in [main] for early warm-up.
+  final ISoundService soundService;
 
   /// The storage backend, created in [main] and injected for testability.
-  final CounterStorageService storageService;
+  final ICounterStorage storageService;
 
   /// Default constructor.
   const IdeaCountApp({super.key, required this.soundService, required this.storageService});
