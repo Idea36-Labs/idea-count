@@ -16,6 +16,7 @@
     - Number pulse / scale effect (Scale Animation).
     - Haptic feedback (vibration on tap).
     - Audio feedback on tap (low-latency pre-buffered sounds).
+    - Counter bounded to [0, 9999]: silent no-op at both limits, corrupted storage clamped on load.
     - Persist last value across app restarts (`shared_preferences`).
     - Reset button.
     - Jump animation on reset (Reset Jump).
@@ -59,19 +60,24 @@ Idea Count follows the Idea36 Labs visual identity:
 ### Folder structure
 
 ```
-lib/
-├── main.dart
-├── pages/
-│   └── counter_page.dart
-├── services/
-│   ├── counter_storage_service.dart
-│   └── sound_service.dart
-├── theme/
-│   └── app_theme.dart
-└── widgets/
-    ├── counter_button.dart
-    ├── counter_display.dart
-    └── reset_confirmation_dialog.dart
+idea-count/
+├── lib/
+│   ├── main.dart
+│   ├── pages/
+│   │   └── counter_page.dart
+│   ├── services/
+│   │   ├── i_counter_storage.dart
+│   │   ├── i_sound_service.dart
+│   │   ├── counter_storage_service.dart
+│   │   └── sound_service.dart
+│   ├── theme/
+│   │   └── app_theme.dart
+│   └── widgets/
+│       ├── counter_button.dart
+│       ├── counter_display.dart
+│       └── reset_confirmation_dialog.dart
+└── test/
+    └── widget_test.dart
 ```
 
 ### Responsibilities
@@ -94,10 +100,17 @@ Contains full application screens.
 
 #### services/
 
-Encapsulates non-UI logic, external plugins, and data infrastructure:
+Encapsulates non-UI logic, external plugins, and data infrastructure.
 
-- **`counter_storage_service.dart`**: Persistence layer managing asynchronous save and load operations for the counter value via `shared_preferences`.
-- **`sound_service.dart`**: Audio feedback layer managing pre-buffered pools (`AudioPool`) with `PlayerMode.lowLatency` (Android SoundPool) for near-instant playback on rapid taps.
+Interfaces (contracts):
+
+- **`i_counter_storage.dart`**: Abstract interface defining the persistence contract (`loadCounter` / `saveCounter`). Injected into `CounterPage`; enables in-memory fakes in tests without touching UI code.
+- **`i_sound_service.dart`**: Abstract interface defining the audio contract (`playIncrement` / `playDecrement` / `dispose`). Enables no-op fakes in tests with zero native-plugin initialization.
+
+Implementations:
+
+- **`counter_storage_service.dart`**: Concrete `ICounterStorage` backed by `shared_preferences`.
+- **`sound_service.dart`**: Concrete `ISoundService` using `AudioPool` with `PlayerMode.lowLatency` (Android SoundPool) for near-instant playback on rapid taps.
 
 #### widgets/
 
@@ -121,18 +134,22 @@ Avoids hardcoded colors and styles scattered throughout the code.
 ### State management & Architecture Patterns
 
 - UI state is managed directly using Flutter's built-in `StatefulWidget` and `setState()`, keeping the codebase simple and lightweight.
-- Clear separation of concerns: storage and audio playback are extracted into standalone service classes under `services/`, keeping the UI layer decoupled from device and storage APIs.
-- Dependencies are passed down via constructor injection (`main` → `IdeaCountApp` → `CounterPage`).
+- **Dependency inversion:** `CounterPage` depends exclusively on the `ICounterStorage` and `ISoundService` abstractions, never on concrete implementations enabling full test isolation with in-memory fakes.
+- **Constructor injection:** concrete instances (`CounterStorageService`, `SoundService`) are created in `main()` and injected down the tree (`main` → `IdeaCountApp` → `CounterPage`), so tests build `CounterPage` directly with fakes, bypassing `main()` entirely.
+- **Boundary enforcement:** counter mutations are guarded at [0, 9999]. State, persistence, and audio are never triggered when a limit is reached; loaded values are clamped to sanitize corrupt storage data.
 
 ## Changelog
 
 ### v1.1.0
+- **Boundary Enforcement:** Counter clamped to [0, 9999]: mutations are no-ops at limits; corrupted storage values clamped on load.
 - **Audio Feedback:** Integrated instant auditory feedback on tap using `AudioPool` with `lowLatency` mode (Android SoundPool) and eager startup initialization.
 - **Visual Identity:** Updated app launcher icon and refreshed native asset bundles.
 - **Architectural Refactoring:**
   - Applied Clean Architecture principles by isolating persistence into `CounterStorageService`.
+  - Extracted `ICounterStorage` and `ISoundService` abstract interfaces for dependency inversion (`CounterPage` depends on contracts, not concrete classes).
   - Extracted UI components into modular widgets (`CounterDisplay`, `CounterButton`, `ResetConfirmationDialog`).
   - Implemented constructor dependency injection from `main()`.
+- **Test Suite:** Full widget test suite (`test/widget_test.dart`) using in-memory `_FakeStorage` and no-op `_FakeSoundService`. 10 tests covering initial state, boundary limits, persist round-trips, and clamp on corrupt data.
 - **Performance & UI Fixes:** Prevented animation queue buildup on rapid taps and decoupled storage execution from `setState`.
 - **Localization:** Translated in-app UI messaging, code comments, and documentation to English.
 
